@@ -3,8 +3,15 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-import { Title, Wrapper, Form, Input, Switcher, Error } from "../components/AuthComponents";
-
+import {
+  Title,
+  Wrapper,
+  Form,
+  Input,
+  Switcher,
+  Error,
+} from "../components/AuthComponents";
+import SocialLoginButton from "../components/SocialLoginButton";
 
 export default function CreateAccount() {
   const navigate = useNavigate();
@@ -84,6 +91,8 @@ export default function CreateAccount() {
       <Switcher>
         Already have an account? <Link to="/login">Log in</Link>
       </Switcher>
+      <SocialLoginButton provider="google" />
+      <SocialLoginButton provider="github" />
     </Wrapper>
   );
 }

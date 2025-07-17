@@ -11,6 +11,7 @@ import {
   Switcher,
   Error,
 } from "../components/AuthComponents";
+import SocialLoginButton from "../components/SocialLoginButton";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -70,6 +71,8 @@ export default function Login() {
       <Switcher>
         Don't have an account? <Link to="/create-account">Create one</Link>
       </Switcher>
+      <SocialLoginButton provider="google" />
+      <SocialLoginButton provider="github" />
     </Wrapper>
   );
 }
