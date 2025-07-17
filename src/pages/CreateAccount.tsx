@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { FirebaseError } from "firebase/app";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -19,6 +20,7 @@ const Title = styled.h1`
 
 const Form = styled.form`
   margin-top: 50px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -77,7 +79,9 @@ export default function CreateAccount() {
       await updateProfile(credential.user, { displayName: name });
       navigate("/");
     } catch (error) {
-      setError(error);
+      if (error instanceof FirebaseError) {
+        setError(error.message);
+      }
     } finally {
       setIsLoading(false);
     }
