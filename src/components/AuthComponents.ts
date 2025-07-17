@@ -18,7 +18,7 @@ export const Form = styled.form`
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   width: 100%;
 `;
 
@@ -32,6 +32,15 @@ export const Input = styled.input`
     cursor: pointer;
     color: white;
     background-color: #1d9bf0;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  &[type="button"] {
+    cursor: pointer;
+    color: #1d9bf0;
+    border: 1px solid #1d9bf0;
+    background-color: transparent;
     &:hover {
       opacity: 0.8;
     }

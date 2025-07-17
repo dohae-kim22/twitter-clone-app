@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebase";
 import {
   Title,
@@ -11,31 +11,24 @@ import {
   Switcher,
   Error,
 } from "../components/AuthComponents";
-import SocialLoginButton from "../components/SocialLoginButton";
 
 export default function Login() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    if (name === "email") {
-      setEmail(value);
-    } else if (name === "password") {
-      setPassword(value);
-    }
+    setEmail(e.target.value);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isLoading || !email || !password) return;
+    if (isLoading || !email) return;
     try {
       setIsLoading(true);
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
+      await sendPasswordResetEmail(auth, email);
+      navigate("/login");
     } catch (error) {
       if (error instanceof FirebaseError) {
         setError(error.message);
@@ -47,7 +40,7 @@ export default function Login() {
 
   return (
     <Wrapper>
-      <Title>Log into 𝕏</Title>
+      <Title>Find your 𝕏 account</Title>
       <Form onSubmit={handleSubmit}>
         <Input
           name="email"
@@ -58,26 +51,14 @@ export default function Login() {
           required
         />
         <Input
-          name="password"
-          placeholder="Password"
-          type="password"
-          onChange={handleChange}
-          value={password}
-          required
-        />
-        <Input type="submit" value={isLoading ? "Loading..." : "Log in"} />
-        <Input
-          type="button"
-          value="Forgot password?"
-          onClick={() => navigate("/reset-password")}
+          type="submit"
+          value={isLoading ? "Sending email..." : "Reset password"}
         />
       </Form>
       {error !== "" ? <Error>{error}</Error> : null}
       <Switcher>
-        Don't have an account? <Link to="/create-account">Create one</Link>
+        Remember your password? <Link to="/login">Log in</Link>
       </Switcher>
-      <SocialLoginButton provider="google" />
-      <SocialLoginButton provider="github" />
     </Wrapper>
   );
 }

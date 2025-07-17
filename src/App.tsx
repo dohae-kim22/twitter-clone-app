@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import LoadingScreen from "./components/LoadingScreen";
 import { auth } from "./firebase";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import ResetPassword from "./pages/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
   },
   { path: "/login", element: <Login /> },
   { path: "/create-account", element: <CreateAccount /> },
+  { path: "/reset-password", element: <ResetPassword /> },
 ]);
 
 const GlobalStyles = createGlobalStyle`

@@ -48,7 +48,7 @@ export default function SocialLoginButton({
       await signInWithPopup(auth, authProvider);
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
