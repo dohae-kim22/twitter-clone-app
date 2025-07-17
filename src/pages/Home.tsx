@@ -1,7 +1,9 @@
-export default function Home () {
+import PostTweetForm from "../components/PostTweetForm";
+
+export default function Home() {
   return (
     <>
-      <h1>Home Component</h1>
+      <PostTweetForm />
     </>
   );
 }
