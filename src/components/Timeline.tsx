@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import Tweet from "./Tweet";
+import styled from "styled-components";
 
 export interface ITweet {
   id: string;
@@ -18,6 +19,13 @@ export interface ITweet {
   userId: string;
   userName: string;
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  overflow-y: scroll;
+`;
 
 export default function Timeline() {
   const [tweets, setTweets] = useState<ITweet[]>([]);
@@ -57,10 +65,10 @@ export default function Timeline() {
     fetchTweets();
   }, []);
   return (
-    <>
+    <Wrapper>
       {tweets.map((tweet) => (
         <Tweet key={tweet.id} {...tweet} />
       ))}
-    </>
+    </Wrapper>
   );
 }
